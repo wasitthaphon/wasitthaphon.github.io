@@ -30,6 +30,7 @@ github_username: wasitthaphon
 theme: minima
 plugins:
   - jekyll-feed
+  - jemoji
 
 defaults:
   - scope:
