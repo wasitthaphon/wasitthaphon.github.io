@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Introduction to git"
+title: "Introduction to Git"
 date: 2022-03-14 15:06:00 +0700
 categories: Git 101
 ---
