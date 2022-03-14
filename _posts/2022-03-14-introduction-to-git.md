@@ -46,7 +46,7 @@ git config --global user.email "[email address]"
 
 ### Branches
 
-> :warning: commit ใด ๆ ที่ผู้ใช้บันทึกจะเกิดขึ้นบน Branch ปัจจุบันที่ผุ้ใช้กำลังทำงานอยู่
+> :memo: commit ใด ๆ ที่ผู้ใช้บันทึกจะเกิดขึ้นบน Branch ปัจจุบันที่ผุ้ใช้กำลังทำงานอยู่
 
 ```git
 git branch [branch-name]
