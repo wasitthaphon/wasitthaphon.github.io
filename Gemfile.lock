@@ -284,6 +284,7 @@ DEPENDENCIES
   github-pages (~> 223)
   jekyll-feed (~> 0.12)
   jemoji
+  kramdown
   minima (~> 2.5)
   tzinfo (~> 1.2)
   tzinfo-data
