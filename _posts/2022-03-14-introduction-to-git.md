@@ -1,55 +1,97 @@
 ---
 layout: post
-title: "Introduction to Git"
+title: "Git 101"
 date: 2022-03-14 15:06:00 +0700
-categories: Git 101
+categories: Git
 ---
 
 ## Git คืออะไร ?
 
 Git เป็นโปรโตคอล และซอฟต์แวร์สำหรับการจัดการเวอร์ชันของไฟล์ Source code ทั้งต้ว ไฟล์ Text และ ไฟล์ Binary
 
-## สารบัญ
-
-* TOC
-{:toc}
-
 ## ทำไมต้องเป็น Git ?
 
-Git เข้ามามีบทบาทในการทำเวอร์ชันให้กับไฟล์ในแต่ละการอัปเดตได้ จุดเด่นที่ทำให้ Git มีการใช้งานที่แพร่หลายมาจาก Feature 2 ตัวนี้
-
-1. Branching
-2. Distributed versioning control
+Git เข้ามามีบทบาทในการทำเวอร์ชันให้กับไฟล์ในแต่ละการอัปเดตได้ และไม่จำเป็นต้องมีเซิฟเวอร์ จุดเด่นที่ทำให้ Git มีการใช้งานที่แพร่หลายมาจาก Feature เด่น ๆ ของ Git เช่น Branching, Commit และ Distributed source control
 
 ### Branching
 
-ผู้ใช้สามารถแยก Branch หรือสาขาการทำงานบน Repository เพื่อไม่ให้ตัวไฟล์กระทบกับ Branch หลักได้
+เราสามารถแยก Branch หรือสาขาการทำงานบน Repository เพื่อไม่ให้ตัวไฟล์กระทบกับ Branch หลักหรือ branch อื่น ๆ ได้
 
-### Distibuted versioning control
+### Commit
+
+เราสามารถบันทึก Stage การทำงานได้จาก commit และตัว commit เองเป็นเสมือน pointer ที่คอยชี้ว่าแต่ละจุดมีการเปลี่ยนแปลงอะไรบ้าง
+
+### Distibuted source control
 
 กรณีทำงานร่วมกันหลายคน ผู้ใช้ไม่จำเป็นต้องเชื่อมต่อเซิฟเวอร์กลางเพื่อทำเวอร์ชันตลอดเวลา ผู้ใช้จะอัปเดตเวอร์ชันภายวน Local repository ของตนเอง และหากมีอัปเดตที่ต้องการให้ทุกคนอัปเดตด้วย จึงค่อยอัปเดตขึ้นไปยังตัวเซิฟเวอร์กลาง
 
-## คำสั่งที่จำเป็น
+## Git spaces
 
-คำสั่งดังต่อไปนี้อ้างอิงมาจาก [Github git cheat sheet](https://training.github.com/downloads/github-git-cheat-sheet.pdf)
+ขอเรียกกลุ่มงานว่าสเปซนะครับ สเปซใน Git แบ่งได้เป็น 5 ส่วนได้แก่
 
-### Configuration ก่อนเริ่มต้นทำงาน
+1. Stash
+2. Workspace
+3. Index
+4. Local repository
+5. Upstream repository
 
-คำสั่งสำหรับการตั้งค่า information สำหรับ user บน Local repository
+### Stash
+
+Stash เป็นพื้นที่ใช้เก็บไฟล์ที่เราแก้ไขยังไม่เสร็จ แต่เราต้องการ switch ไปทำงานที่ branch อื่นก่อน
+
+### Workspace
+
+branch ที่เรากำลังทำงานอยู่
+
+### Index
+
+ในสเปซนี้มีคำที่ใช้เรียกได้หลายอย่าง
+
+- Current directory cache
+- Staging area
+- Cache
+- Staged file
+
+Index เป็นพื้นที่ใช้เตรียมไฟล์ที่พร้อมทำ commit ถัดไป
+
+### Local repository
+
+Local repository เป็นพื้นที่เก็บทรัพยากร (ไฟล์ source code, text, image ฯลฯ) และมีตัวควบคุมหรือจัดการทรัพยากร (ประวัติ commit, branch, source code, อัปเดตต่าง ๆ) นั้นอยู่ในโฟลเดอร์ `.git`
+
+### Upstream repository
+
+Upstream repository เป็น Repository ที่อยู่บน Hosting ที่คอยเป็นศูนย์กลางในการอัปเดตเวอร์ชันของโปรเจ็กต์ให้ระหว่างเราและเพื่อนร่วมทีม
+
+## คำสั่งที่มักใช้บ่อย
+
+เข้าไปดูได้ตาม [Git cheat sheet](https://ndpsoftware.com/git-cheatsheet.html#loc=workspace;) เลยนะครับ เข้าไปศึกษาด้วยตัวเองได้เลย
+
+## ไม่รู้จะใช้คำสั่งอะไร ?
+
+ให้ใช้โฟลวตัวนี้ช่วยคุณ [Git mess?](http://justinhileman.info/article/git-pretty/git-pretty.png)
+
+## Git configuration
+
+เราสามารถตั้งค่า Git ได้ด้วยคำสั่ง `git config` การตั้งค่าให้กับ git เช่น สีของตัวหนังสือบน command prompt, commit template, name, email, ฯลฯ
+
+### สิ่งที่ควรตั้งค่าตั้งแต่เริ่มต้น
+
+เราควรจะตั้งค่า name และ email ตั้งแต่เริ่มต้นไปเลย การตั้งค่า name และ email
+นั้นจะใช้เป็นข้อมูลในการบันทึกไปกับ commit
 
 ```git
 git config --global user.name "[name]"
 ```
 
-ตั้งค่าชื่อที่ต้องการบันทึกลงบน Transaction ที่เรา commit
+ตั้งค่าชื่อที่ต้องการบันทึกลงบน Transaction ที่เราจะ commit
 
 ```git
 git config --global user.email "[email address]"
 ```
 
-ตั้งค่า email ที่ต้องการบันทึกลงบน Transaction ที่เรา commit
+ตั้งค่า email ที่ต้องการบันทึกลงบน Transaction ที่เราจะ commit
 
-### Branches
+## Branches
 
 > :memo: commit ใด ๆ ที่ผู้ใช้บันทึกจะเกิดขึ้นบน Branch ปัจจุบันที่ผุ้ใช้กำลังทำงานอยู่
 
@@ -63,7 +105,7 @@ git branch [branch-name]
 git checkout [branch-name]
 ```
 
-สลับไปยัง branch ที่ระบุและอัปเดตไฟล์ทั้งหมดตาม branch นั้น
+สลับไปยัง branch ที่ระบุและอัปเดตไฟล์ทั้งหมดให้อยู่ตามเดิมของ branch นั้น
 
 ```git
 git merge [branch]
@@ -77,13 +119,19 @@ git branch -d [branch-name]
 
 ลบ branch
 
-### คำสั่งกลุ่มสำหรับการ commit การเปลี่ยนแปลงใหม่ ๆ
+## คำสั่ง Basic
 
 ```git
 git log
 ```
 
-ลิสต์ประวัติการ commit ของ branch ที่กำลังทำงานอยู่ ณ ปัจจุบัน
+รายการประวัติ commit ของ branch ที่กำลังทำงานอยู่ ณ ปัจจุบัน
+
+```git
+git status
+```
+
+ดูสถานะรายการที่มีการเปลี่ยนแปลงทั้งหมด ณ ปัจจุบัน
 
 ```git
 git add [file]
@@ -97,7 +145,7 @@ git commit -m "[descriptive message]"
 
 บันทึกกลุ่มไฟล์ที่ได้ทำ snapshot ด้วยคำสั่ง git add เรียบร้อยแล้ว
 
-### Synchronize changes
+## Synchronize changes
 
 คำสั่งการ Sycnhronize ระหว่าง Local repository กับ Remote repository
 
@@ -117,41 +165,58 @@ git merge
 git push
 ```
 
-อัปโหลด local branch ขึ้นไปยัง remote branch
+อัปโหลด Local branch ขึ้นไปยัง Remote branch
+
+```git
+git push --set-upstream [remote] [branch]
+```
+
+set-upstream เพื่อ Tracking ระหว่าง Local branch กับ Branch บน Remote repository
 
 ```git
 git pull
 ```
 
-อัปเดต local branch ปัจจุบันด้วย commit ต่าง ๆ บน remote branch คำสั่งนี้เกิดจากการทำงานของ 2 คำสั่งต่อไปนี้ร่วมกัน คือ **git fetch** และ **git merge**
+อัปเดต local branch ปัจจุบันด้วย commit ต่าง ๆ บน remote branch คำสั่งนี้เกิดจากการทำงานของ 2 คำสั่งต่อไปนี้ร่วมกัน คือ `git fetch` และ `git merge`
 
-### Redo commits
+## Redo commits
 
 คำสั่งสำหรับการย้อนกลับ หรือยกเลิกการแก้ไขต่าง ๆ
 
 ```git
-git reset
+git reset [commit]
 ```
+
+ย้อนกลับไปยัง commit ที่ระบุ และให้เก็บการเปลี่ยนแปลงของ commit ที่ข้ามไปไว้ด้วย
 
 ```git
-git cherry pick
+git reset --hard [commit]
 ```
+
+ย้อนกลับไปยัง commit ที่ระบุ และให้ลบการเปลี่ยนแปลงทั้งหมดของ commit ที่ข้ามไป
 
 ```git
-git revert
+git cherry-pick [commit]
 ```
+
+เอาการเปลี่ยนแปลงของ commit ที่ระบุมารวมกับการทำงานปัจจุบัน
 
 ```git
-git rebase
+git revert [commit]
 ```
 
-## การใช้ Git บน VS code
+ทำตรงกันข้ามของการเปลี่ยจนแปลงทั้งหมดบน commit ที่ระบุ เช่น
 
-การทำงาน Source control บน vs code สามารถเข้าไปใช้งานง่าย ๆ โดยที่ไม่ต้องใช้ command บน command prompt ได้
+- ถ้า commit นั้นมีไฟล์ที่เพิ่มเข้ามา commit ที่จะบันทึกถัดไปจะลบไฟล์นั้นแทน
+- ถ้า commit นั้นมีการแก้ไขเพิ่มเข้าไป commit ที่จะบันทึกถัดไปจะลบการแก้ไขนั้นออกแทน
+
+## การใช้ Git บน Visual studio code (vs code)
+
+การทำงาน Source control บน vs code สามารถเข้าไปใช้งานง่าย ๆ โดยไม่ต้องใช้ git cli บน command prompt
 
 ![Food & drink](/assets/images/git-resource/git-entrance.PNG)
 
-ก่อนจะเข้ามาใช้งานที่ Extension source control ได้ ที่ Directory นั้น ๆ ต้องมีไฟล์ที่เกี่ยวกับ .git ก่อน (ผ่านการ git init มาแล้ว)
+ก่อนจะเข้ามาใช้งานที่ Extension source control ได้ ที่ Directory นั้น ๆ ต้องมีโฟลเดอร์ .git ก่อน (ผ่านการ `git init` มาแล้ว)
 
 ### Features
 
@@ -191,7 +256,7 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
 
 ### การใช้งาน Git เบื้องต้นบน Local repository
 
-#### หัวข้อนี้จะได้ทำความเข้า
+#### หัวข้อนี้เราจะลองใช้ git สักเล็กน้อย โดยเราจะทำดังต่อไปนี้
 
 - การ initialize git
 - การใช้เครื่องมือ VS code จัดการกับ Source control
@@ -200,13 +265,13 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
 - การ commit พร้อมทั้งการทำ commit message
 - การ Redo commit
 
-#### Let's get started
+#### มาเริ่มกันเลย
 
 1. เปิด command promp แล้วไปยัง Directory ที้ต้องการจะสร้าง git source control
 
    ![Git init location](/assets/images/git-resource/cmd.PNG)
 
-2. ใช้คำสั่ง git init เพื่อสร้าง git project
+2. ใช้คำสั่ง `git init` เพื่อสร้าง git project
 
    ```git
    git init
@@ -222,7 +287,7 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
    2. A: Index Added คือ ไฟล์ที่ถูกเพิ่มเข้ามาใหม่ใน Staging area (หลังจาก add)
    3. M: Modified คือ ไฟล์ที่ถูก Tracked และมีการแก้ไข
    4. R คือ ไฟล์ที่จะถูกเปลี่ยนชื่อใน commit ถัดไป
-   5. D คือ ไฟล์ที่จะถูกลบใน commit ถัดไป
+   5. D: Deleted คือ ไฟล์ที่จะถูกลบใน commit ถัดไป
 
 4. ใส่ข้อมูลเครื่องดี่ม (หรืออะไรก็ได้)
 
@@ -251,15 +316,15 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
 
    commit เพื่อบันทึกการทำงานโดยการ commit นั้น มีหลักการตั้งชื่ออธิบายการอัปเดตในแต่ละครั้งด้วยเช่นกัน สามารถเข้าไปศึกษาเพิ่มเติมได้ที่ [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
-   การทำ commit สามารถทำได้ทั้งผ่าน git cli หรือ ผ่าน interface ของ IDE ที่สนับสนุน โดยจากภาพจะเป็นการทำ commit message ผ่าน GUI ของ VS Code
+   การทำ commit สามารถทำได้ทั้งผ่าน git cli หรือ ผ่าน interface ของ IDE ที่สนับสนุน โดยจากภาพจะเป็นการทำ commit message ผ่าน GUI ของ vs code
 
    ![Commit message](/assets/images/git-resource/commit-message.PNG)
 
    หากใส่ข้อความเรียบร้อยแล้วให้คลิ้กที่ `เครื่องหมายถูก`
 
-8. ตรวจประวัติการ commit
+8. ตรวจประวัติ commit
 
-   สามารถดูประวัติการ commit ของ branch นั้น ๆ ได้ด้วยการไปยังแท็บ `COMMIT`
+   สามารถดูประวัติ commit ของ branch นั้น ๆ ได้ด้วยการไปยังแท็บ `COMMITS`
 
    ![Commit history](/assets/images/git-resource/commit-history.PNG)
 
@@ -269,7 +334,7 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
 
    ![Add drinks](/assets/images/git-resource/add-new-drink.PNG)
 
-   จากภาพลบ`เบียร์`ออกไปแล้วเพิ่ม`กาแฟ` และ`ชา`เข้ามา
+   จากภาพลบ`:beer:`ออกไปแล้วเพิ่ม`:coffee:` และ`:tea:`เข้ามา
 
 10. Add ไฟล์ drinks.txt เพื่อเข้า staging area สำหรับเตรียม commit ใหม่
 
@@ -281,8 +346,8 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
 
     จากภาพจะเห็นว่า
 
-    1. ลบเบียร์บรรทัดที่ 2 ออก แล้วเพิ่ม กาแฟเข้าไปแทน
-    2. เพิ่มชาที่บรรทัดที่ 4
+    1. ลบ :beer: บรรทัดที่ 2 ออก แล้วเพิ่ม ☕ เข้าไปแทน
+    2. เพิ่ม :tea: ที่บรรทัดที่ 4
 
 11. commit changes
 
