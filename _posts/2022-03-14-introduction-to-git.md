@@ -5,6 +5,8 @@ date: 2022-03-14 15:06:00 +0700
 categories: Git
 ---
 
+`WORKING IN PROGRESS`
+
 ## Git คืออะไร ?
 
 Git เป็นโปรโตคอล และซอฟต์แวร์สำหรับการจัดการเวอร์ชันของไฟล์ Source code ทั้งต้ว ไฟล์ Text และ ไฟล์ Binary
