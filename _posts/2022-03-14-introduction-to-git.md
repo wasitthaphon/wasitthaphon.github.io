@@ -232,37 +232,10 @@ git revert [commit]
 
 ก่อนจะเข้ามาใช้งานที่ Extension source control ได้ ที่ Directory นั้น ๆ ต้องมีโฟลเดอร์ .git ก่อน (ผ่านการ `git init` มาแล้ว)
 
-### Features
+## Extensions
 
-ฟีเจอร์ที่ Source control ที่บน vs code ให้มาเป็น interface ดูง่าย ๆ มีตามภาพ
-
-![Features](/assets/images/git-resource/git-features.PNG)
-
-- SOURCE CONTROL
-
-  เป็นพื้นที่สำหรับการทำ commit change ต่าง ๆ
-
-- COMMITS
-
-  เป็นพื้นที่สำหรับแสดงประวัติ commit ทั้งหมดของ branch ที่กำลังทำงานอยู่
-
-- FILE HISTORY
-
-  เป็นพื้นที่แสดงประวัติการเปลี่ยนแปลงของไฟล์ที่เลือกอยู่ ณ ขณะนั้นว่าในแต่ละ commit ที่มีไฟล์นี้เกี่ยวข้องนั้น มีการอัปเดตอะไรไปบ้าง
-
-- BRANCHES
-
-  เป็นพื้นที่แสดง branch ทั้งหมดที่อยู่บน Local repository ของเรา และยังแสดงรายการ commit ของแต่ละ branch ได้ด้วย
-
-- REMOTES
-
-  เป็นพื้นที่สำหรับดูว่าเชื่อมต่อกับ Remote branch ใดบ้าง
-
-- STASHES
-
-  เป็นพื้นที่สำหรับเก็บ changes ที่ยังไม่ต้องการ commit
-
-- TAGS
+- [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
 
 ## Workshop
 
