@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Json web token"
+title: "Json Web Token"
 date: 2022-04-01 08:18:00 +0700
 categories: Jwt
 ---
@@ -9,6 +9,11 @@ categories: Jwt
 
 ๋JWT เป็น JSON object ที่ประกอบไปด้วยข้อมูลไว้ใช้สำหรับการ verify ตัว JWT เป็นลายเซ็นต์ดิจิทัลที่สร้าง
 โดยเซิฟเวอร์ที่เราร้องขอเพราะตัว JWT จะถูกสร้างได้นั้นต้องใช้ secret หรือ public/private key
+
+## เนื้อหา
+
+* TOC
+{:toc}
 
 ## ใช้ JWT กับงานอะไร
 
