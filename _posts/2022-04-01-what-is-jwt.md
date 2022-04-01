@@ -87,6 +87,8 @@ JWT จะถูกสร้างก็ต่อเมื่อ User ทำ aut
 
 และนี่คือ Stateless authentication กล่าวคือจะไม่เก็บ state ของ User ไว้กับ Server memory หน้าที่การรับผิดชอบจะให้ส่วนที่ทำงานเช็คความถูกต้องของ JWT บนเซิฟเวอร์เป็นตัวเช็คว่าผ่านหรือไม่ และนี่ก็เป็นการลดภาระที่ต้องเข้าไปเช็คข้อมูลกับฐานข้อมูล
 
+![JWT Flow](/assets/images/jwt/jwt-flow.PNG)
+
 ## ทำไมต้องใช้ JWT
 
 จากบทความได้เปรียบเทียบระหว่าง JSON Web Tokens(JWT), Simple Web Tokens(SWT) และ Security Assertion Markup Language Tokens(SAML)
