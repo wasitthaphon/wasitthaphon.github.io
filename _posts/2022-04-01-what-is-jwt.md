@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Json Web Token"
+title: "JSON Web Token"
 date: 2022-04-01 08:18:00 +0700
 categories: Jwt
 ---
