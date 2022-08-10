@@ -37,47 +37,223 @@ categories: VB.Net
 
 
 
-## Practice 1 - Data preparaion.
+## Practice 
 
 ตัวอย่างข้อมูล
 
 ![Data](/assets/images/subtotal-grandtotal/data.png)
 
-### สร้าง Structure เพื่อเป็นโครงสร้างเก็บข้อมูล
+
+ผลลัพธ์ที่ต้องการ
+
+![Result](/assets/images/subtotal-grandtotal/result.png)
+
+
+### Initail properties
 
 ```vb
-Public Structure SalaryInformation
-    Dim sequence as Integer
-    Dim workYear as Integer
-    Dim experienceLevel as String
-    Dim emplymentType as String
-    Dim jobTitle as String
-    Dim salary as Integer
-    Dim salaryCurrency as String
-    Dim salaryInUsd as Integer
-    Dim employeeResidence as String
-    Dim remoteRatio as Integer
-    Dim companyLocation as String
-    Dim companySize as String
+Const EXPERIENCE_LEVEL_INDEX = 2
+Const JOB_TITLE_INDEX = 4
+Const SALARY_IN_USD_INDEX = 7
 
-    Public Sub New(pSequence as Integer, pWorkYear as Integer, _
-            pExperienceLevel as String, pEmploymentType as String, _
-            pJobTitle as String, pSalary as Integer, _
-            pSalaryCurrency as Integer, pSalaryInUsd as Integer,_
-            pEmployeeResidence as String, pRemoteRatio as Integer, _
-            pCompanyLocation as String, pCompanySize as String)
+Const GRIDVIEW_JOB_TITLE_INDEX = 1
 
-        sequence = pSequence
+Property Data As DataTable
+    Get
+        Return Session("SESSION_SALARY_DATA")
+    End Get
+    Set(value As DataTable)
+        Session("SESSION_SALARY_DATA") = value
+    End Set
+End Property
 
+Public Property SortedData As DataView
+    Get
+        Return Session("SESSION_DATA_VIEW")
+    End Get
+    Set(value As DataView)
+        Session("SESSION_DATA_VIEW") = value
+    End Set
+End Property
 
-    End Sub
+Public Property PreviouseJobTitle As String
+    Get
+        Return ViewState("PREVIOUS_JOB_TITLE")
+    End Get
+    Set(value As String)
+        ViewState("PREVIOUS_JOB_TITLE") = value
+    End Set
+End Property
+
+Public Property CurrentJobTitle As String
+    Get
+        Return ViewState("CURRENT_JOB_TITLE")
+    End Get
+    Set(value As String)
+        ViewState("CURRENT_JOB_TITLE") = value
+    End Set
+End Property
+
+Property GrandTotal As Integer
+    Get
+        Return ViewState("GRAND_TOTAL")
+    End Get
+    Set(value As Integer)
+        ViewState("GRAND_TOTAL") = value
+    End Set
+End Property
+
+Dim subTotalCount As Integer = 0
+
+Public Structure SubTotal
+    Dim jobTitle As String
+    Dim sumSalary As Integer
 End Structure
+
+Dim subTotalDict As New Dictionary(Of String, SubTotal)
+
 ```
 
 ### อ่านข้อมูล CSV
 
+[How to: read from comma-delimited text files in Visual Basic](https://docs.microsoft.com/en-us/dotnet/visual-basic/developing-apps/programming/drives-directories-files/how-to-read-from-comma-delimited-text-files)
 
+``` vb
+Public Function ReadCsvFile(ByVal filePath As String) As DataTable
 
+    Dim dt As New DataTable
+    Dim isFirst As Boolean = True
+    Dim tempSalary As Integer
 
+    dt.Columns.Add("experienceLevel", GetType(String))
+    dt.Columns.Add("jobTitle", GetType(String))
+    dt.Columns.Add("salaryInUsd", GetType(Integer))
 
+    Using reader As New FileIO.TextFieldParser(filePath)
+
+        reader.TextFieldType = FileIO.FieldType.Delimited
+        reader.SetDelimiters(",")
+
+        Dim currentRow As String()
+
+        While Not reader.EndOfData
+            Try
+                If isFirst Then
+                    reader.ReadFields()
+                    isFirst = False
+                End If
+
+                currentRow = reader.ReadFields()
+
+                If Not Integer.TryParse(currentRow(SALARY_IN_USD_INDEX), tempSalary) Then
+                    tempSalary = 0
+                End If
+
+                dt.Rows.Add(currentRow(EXPERIENCE_LEVEL_INDEX), currentRow(JOB_TITLE_INDEX), currentRow(SALARY_IN_USD_INDEX))
+                GrandTotal = GrandTotal + tempSalary
+                AccumulateSubTotal(currentRow(JOB_TITLE_INDEX), tempSalary)
+
+            Catch ex As Exception
+                Console.WriteLine(ex.Message & "is not valid, skipped.")
+            End Try
+        End While
+    End Using
+
+    Return dt
+
+End Function
+```
+
+### Accumultaion function
+
+``` vb
+Private Sub AccumulateSubTotal(key As String, value As Integer)
+    Dim tempSubtotal As SubTotal
+    If Not subTotalDict.ContainsKey(key) Then
+        tempSubtotal = New SubTotal
+        tempSubtotal.jobTitle = key
+        tempSubtotal.sumSalary = value
+
+        subTotalDict(key) = tempSubtotal
+    Else
+        tempSubtotal = subTotalDict(key)
+        tempSubtotal.sumSalary += value
+    End If
+End Sub
+```
+
+### Sort data
+
+การเรียงลำดับข้อมูลจะใช้คลาส DataView เรียง DataTable
+
+``` vb
+Dim dataView As DataView
+
+Data = ReadCsvFile(Server.MapPath("ds_salaries.csv"))
+
+dataView = New DataView(Data)
+dataView.Sort = "jobTitle ASC"
+
+SortedData = dataView
+
+gvResult.DataSource = dataView
+gvResult.DataBind()
+
+```
+
+### เพิ่มแถว
+
+``` vb
+Private Sub AddRow(description As String, value As Integer)
+
+    Dim newRow As New GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert)
+
+    newRow.BackColor = ColorTranslator.FromHtml("#F9F9F9")
+
+    Dim blankTableCell As New TableCell
+    Dim descriptionCell As New TableCell
+    Dim valueCell As New TableCell
+
+    descriptionCell.Text = description
+    descriptionCell.HorizontalAlign = HorizontalAlign.Left
+
+    valueCell.Text = value
+    valueCell.HorizontalAlign = HorizontalAlign.Right
+
+    newRow.Cells.Add(blankTableCell)
+    newRow.Cells.Add(descriptionCell)
+    newRow.Cells.Add(valueCell)
+
+    gvResult.Controls(0).Controls.Add(newRow)
+
+End Sub
+```
+
+### เพิ่มแถวแบบกำหนด Index
+
+```vb
+Private Sub InsertRow(index As Integer, description As String, value As Integer)
+
+    Dim newRow As New GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert)
+
+    newRow.BackColor = ColorTranslator.FromHtml("#F9F9F9")
+
+    Dim blankTableCell As New TableCell
+    Dim descriptionCell As New TableCell
+    Dim valueCell As New TableCell
+
+    descriptionCell.Text = description
+    descriptionCell.HorizontalAlign = HorizontalAlign.Left
+
+    valueCell.Text = value
+    valueCell.HorizontalAlign = HorizontalAlign.Right
+
+    newRow.Cells.Add(blankTableCell)
+    newRow.Cells.Add(descriptionCell)
+    newRow.Cells.Add(valueCell)
+
+    gvResult.Controls(0).Controls.AddAt(index, newRow)
+
+End Sub
+```
 
