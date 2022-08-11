@@ -67,15 +67,6 @@ Property Data As DataTable
     End Set
 End Property
 
-Public Property SortedData As DataView
-    Get
-        Return Session("SESSION_DATA_VIEW")
-    End Get
-    Set(value As DataView)
-        Session("SESSION_DATA_VIEW") = value
-    End Set
-End Property
-
 Public Property PreviouseJobTitle As String
     Get
         Return ViewState("PREVIOUS_JOB_TITLE")
@@ -149,7 +140,7 @@ Public Function ReadCsvFile(ByVal filePath As String) As DataTable
                     tempSalary = 0
                 End If
 
-                dt.Rows.Add(currentRow(EXPERIENCE_LEVEL_INDEX), currentRow(JOB_TITLE_INDEX), currentRow(SALARY_IN_USD_INDEX))
+                dt.Rows.Add(currentRow(EXPERIENCE_LEVEL_INDEX), currentRow(JOB_TITLE_INDEX), tempSalary)
                 GrandTotal = GrandTotal + tempSalary
                 AccumulateSubTotal(currentRow(JOB_TITLE_INDEX), tempSalary)
 
@@ -187,16 +178,11 @@ End Sub
 การเรียงลำดับข้อมูลจะใช้คลาส DataView เรียง DataTable
 
 ``` vb
-Dim dataView As DataView
-
 Data = ReadCsvFile(Server.MapPath("ds_salaries.csv"))
 
-dataView = New DataView(Data)
-dataView.Sort = "jobTitle ASC"
+Data.DefaultView.Sort = "jobTitle ASC"
 
-SortedData = dataView
-
-gvResult.DataSource = dataView
+gvResult.DataSource = Data
 gvResult.DataBind()
 
 ```
