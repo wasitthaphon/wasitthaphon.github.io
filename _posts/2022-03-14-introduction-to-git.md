@@ -19,29 +19,25 @@ Git เป็นโปรโตคอล และซอฟต์แวร์ส
 ## ทำไมต้องเป็น Git ?
 
 Git เข้ามามีบทบาทในการทำเวอร์ชันให้กับไฟล์ในแต่ละการอัปเดตได้ และไม่จำเป็นต้องมีเซิฟเวอร์
-จุดเด่นที่ทำให้ Git มีการใช้งานที่แพร่หลายมาจากฟีเจอร์เด่น ๆ เช่น Branch, Commit และ Distributed source control เป็นต้น
+จุดเด่นที่ทำให้ Git มีการใช้งานที่แพร่หลายมาจากฟีเจอร์เด่น ๆ เช่น Branch, Commit และ เป็นการควบคุมแบบไม่จำเป็นต้องพึ่งศูนย์กลาง เป็นต้น
 
 ### Branch
 
-ฺฺBranch เป็นการแยกสาขาการทำงาน เราแยก branch ออกมาเพื่อการทำงานที่เป็นระเบียบเพราะ branch สามารถใช้อธิบายชุดงานได้ว่าเรากำลังทำอะไรอยู่
+Branch เป็นการแยกสาขาการทำงาน เราแยกสาขาการทำงานออกมาเพื่อความเป็นระเบียบเพราะ Branch สามารถใช้อธิบายชุดงานได้ว่าเรากำลังทำอะไรอยู่
 
 Branch เป็นตัวชี้ของ snapshot ในจุดของการเปลี่ยนแปลงล่าสุดของแต่ละ Branch ของมันเอง
 
 ### Commit
 
-เราสามารถบันทึกการทำงานได้ด้วย commit และตัว commit เองเป็นเสมือน pointer ที่คอยชี้ว่าแต่ละจุดมีการเปลี่ยนแปลงอะไรบ้าง
+เราสามารถบันทึกการทำงานได้ด้วย Commit และตัว Commit เองเป็นเสมือน Pointer ที่คอยชี้ว่าแต่ละจุดมีการเปลี่ยนแปลงอะไรบ้าง
 
 ### Distibuted source control
 
 กรณีทำงานร่วมกันหลายคน ผู้ใช้ไม่จำเป็นต้องเชื่อมต่อเซิฟเวอร์กลางเพื่ออัปเดตไฟล์กับตัวที่อยู่บนเซิฟเวอร์ตลอดเวลา ผู้ใช้จะอัปเดตไฟล์บน Local repository ของตนเอง และหากมีอัปเดตที่ต้องการให้ทุกคนอัปเดตด้วย จึงค่อยอัปเดตขึ้นไปยังตัวเซิฟเวอร์
 
-จะเห็นว่า Git นั้นมีจุดเด่นที่น่าสนใจมากมาย และ Git เองก็ยังวิเคราะห์ประสิทธิภาพเปรียบเทียบกับ Source control ตัวอื่น ๆ ว่าโดดเด่นขนาดไหน
-
 ต่อไปนี้จะเป็นการจัดกลุ่มพื้นที่การทำงานต่าง ๆ บนโฟลวของ Git ซึ่งจะทำให้ดูง่ายขึ้นว่าคำสั่งต่าง ๆ นั้นใช้ในจุดไหนของ Git
 
-## Git spaces
-
-ขอเรียกกลุ่มงานว่า Space นะครับ Space ใน Git แบ่งได้เป็น 5 ส่วนได้แก่
+อ้างอิงจาก [Git Cheatsheet](https://ndpsoftware.com/git-cheatsheet.html#loc=index;) จะเห็นว่าคำสั่งของ Git แบ่งได้อยู่ 5 กลุ่ม ได้แก่
 
 1. Stash
 2. Workspace
@@ -51,36 +47,96 @@ Branch เป็นตัวชี้ของ snapshot ในจุดของ
 
 ### Stash
 
-Stash เป็นพื้นที่ใช้เก็บไฟล์ที่เราแก้ไขยังไม่เสร็จ แต่เราต้องการ switch ไปทำงานที่ branch อื่นก่อน
+Stash เป็นพื้นที่ใช้เก็บสะสมไฟล์ที่เราแก้ไขยังไม่เสร็จ แต่เราต้องการ switch ไปทำงานที่ branch อื่นก่อน
+
+#### คำสั่งที่ใช้กับ Stash
+
+| คำสั่ง                                          | คำอธิบาย                                                                                                                      |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| stash push [&lt;msg&gt;]                        | ย้ายการเปลี่ยนแปลงทั้งหมดเข้าไปสะสมไว้ในที่พัก จากนั้น git จะ revert (reset --hard) ส่วน &lt;msg&gt; เป็นคำอธิบายให้กับ stash |
+| stash pop                                       | นำเอาการเปลี่ยนแปลงตัวที่ stash บนสุดออกมาและลบ stash ตัวนั้นทิ้ง                                                             |
+| stash apply [&lt;stash&gt;]                     | เลือกเอา stash ออกมา                                                                                                          |
+| stash list                                      | แสดงรายการที่ทำ stash                                                                                                         |
+| stash show [&lt;stash&gt;]                      | แสดง diff ของ stash                                                                                                           |
+| stash drop [&lt;stash&gt;]                      | ลบ stash 1 รายการ                                                                                                             |
+| stash clear                                     | ลบ stash ทั้งหมด                                                                                                              |
+| stash branch &lt;branchname&gt; [&lt;stash&gt;] | สร้าง Branch ตามที่ระบุจากนั้น check out ไปยัง Branch นั้นพร้อมกับ stash                                                      |
 
 ### Workspace
 
-branch ที่เรากำลังทำงานอยู่
+ที่ที่ใช้ทำงาน (Working copy) ร่วมกับ Local repository
+
+| คำสั่ง                                     | คำอธิบาย |
+| ------------------------------------------ | -------- |
+| status                                     | --       |
+| diff                                       | --       |
+| diff &lt;commit หรือ branch&gt;            | --       |
+| add &lt;file... หรือ dir...&gt;            | --       |
+| add -u                                     | --       |
+| rm &lt;file(s)...&gt;                      | --       |
+| mv &lt;file(s)...&gt;                      | --       |
+| commit -a [-m 'msg']                       | --       |
+| checkout &lt;file(s)... or dir&gt;         | --       |
+| reset --hard                               | --       |
+| reset --hard &lt;remote&gt;/&lt;branch&gt; | --       |
+| switch &lt;branch&gt;                      | --       |
+| checkout -b &lt;name of new branch&gt;     | --       |
+| merge &lt;commit หรือ branch&gt;           | --       |
+| rebase &lt;upstream branch&gt;             | --       |
+| cherry-pick &lt;commit&gt;                 | --       |
+| revert &lt;commit&gt;                      | --       |
+| clone &lt;repo&gt;                         | --       |
+| pull &lt;remote&gt; &lt;refspec&gt;        | --       |
 
 ### Index
 
-ในสเปซนี้มีคำที่ใช้เรียกได้หลายอย่าง
+Index เป็นพื้นที่ใช้เตรียมไฟล์ที่พร้อมทำ commit ถัดไป
+
+กลุ่มนี้สามารถเรียกได้หลายอย่าง ได้แก่
 
 - Current directory cache
 - Staging area
 - Cache
 - Staged file
 
-Index เป็นพื้นที่ใช้เตรียมไฟล์ที่พร้อมทำ commit ถัดไป
+| คำสั่ง                         | คำอธิบาย |
+| ------------------------------ | -------- |
+| reset HEAD &lt;file(s)...&gt;  | --       |
+| reset --soft HEAD^             | --       |
+| diff --cached [&lt;commit&gt;] | --       |
+| commit [-m 'msg']              | --       |
+| commit --amend                 | --       |
 
 ### Local repository
 
 Local repository เป็นพื้นที่เก็บทรัพยากร (ไฟล์ source code, text, image ฯลฯ) และมีตัวควบคุมหรือจัดการทรัพยากร (ประวัติ commit, branch, source code, อัปเดตต่าง ๆ) นั้นอยู่ในโฟลเดอร์ `.git`
 
+| คำสั่ง                                                               | คำอธิบาย |
+| -------------------------------------------------------------------- | -------- |
+| log                                                                  | --       |
+| diff &lt;commit&gt; &lt;commit&gt;                                   | --       |
+| branch                                                               | --       |
+| branch -d &lt;branch&gt;                                             | --       |
+| branch --track &lt;new branch name&gt; &lt;remote&gt;/&lt;branch&gt; | --       |
+| fetch &lt;remote&gt; &lt;refspec&gt;                                 | --       |
+| push                                                                 | --       |
+| push &lt;remote&gt; &lt;refspec&gt;                                  | --       |
+| push &lt;remote&gt; &lt;local&gt;:&lt;name&gt;                       | --       |
+
 ### Upstream repository
 
 Upstream repository เป็น Repository ที่อยู่บน Hosting ที่คอยเป็นศูนย์กลางในการอัปเดตเวอร์ชันของโปรเจ็กต์ระหว่างเราและเพื่อนร่วมทีม
+
+| คำสั่ง                                      | คำอธิบาย |
+| ------------------------------------------- | -------- |
+| branch -r                                   | --       |
+| push &lt;remote&gt; --delete &lt;branch&gt; | --       |
 
 ## คำสั่งที่มักใช้บ่อย
 
 เข้าไปดูได้ตาม [Git cheat sheet](https://ndpsoftware.com/git-cheatsheet.html#loc=workspace;) เลยนะครับ เข้าไปศึกษาด้วยตัวเองได้เลย
 
-## ไม่รู้จะใช้คำสั่งอะไร ?
+## เมื่อเกิดปัญหา แต่ไม่รู้จะใช้คำสั่งอะไร ?
 
 ให้ใช้โฟลวตัวนี้ช่วยคุณ [Git mess?](http://justinhileman.info/article/git-pretty/git-pretty.png)
 
@@ -347,5 +403,3 @@ workshop นี้จะเป็นการพาใช้งาน git เบ
     ให้ไปที่แท็บ `COMMITS` จะพบว่ามีประวัติการ commit เพิ่มขึ้นมาใหม่ 1 commit
 
     ![Git history #2](/assets/images/git-resource/commit-history-2.PNG)
-
-### การใช้งาน Git เบื้องต้นบน Remote repository
