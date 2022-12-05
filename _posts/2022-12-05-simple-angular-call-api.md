@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Angular work with REST Api"
+title: "Angular X REST Api"
 date: 2022-12-05 08:00:00 +0700
 categories: Angular
 ---
