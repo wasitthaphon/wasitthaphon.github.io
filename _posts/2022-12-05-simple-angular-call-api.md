@@ -59,6 +59,7 @@ categories: Angular
   ```
 
 7. เพิ่ม modules ที่จะใช้งาน (app.module.ts)
+  
   ```ts
   import { NgModule } from "@angular/core";
   import { BrowserModule } from "@angular/platform-browser";
@@ -88,6 +89,7 @@ categories: Angular
 8. สร้าง Model สำหรับกำหนด Type ในการรับ ส่งข้อมูล
    - สร้างโฟลเดอร์ชื่อ models
    - สร้างไฟล์ใหม่ชื่อ post-blog.model.ts
+  
   ```ts
   export interface PostBlogModel {
     userId: number;
@@ -100,6 +102,7 @@ categories: Angular
 9. สร้าง Layout หน้าเว็บ (app.component.html)
    การทำงานของหน้านี้จะแบ่งเป็น 2 คอลัมน์ โดย คอลัมน์แรกจะเป็นหน้ารายการ
    และคอลัมน์ที่ 2 จะเป็นส่วนของการ maintenance
+  
   ```html
   <div class="container-fluid h-100 w-100">
     <div class="row p-4">
