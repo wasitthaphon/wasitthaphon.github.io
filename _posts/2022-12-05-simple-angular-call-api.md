@@ -29,21 +29,25 @@ categories: Angular
 
 1. ติดตั้ง Node JS
 2. ติดตั้ง Angular cli
+  
   ```
   npm install -g @angular/cli
   ```
 
 3. สร้าง Angular web application ใหม่
+  
   ```
   ng new [name]
   ```
 
 4. ลง package angular bootstrap
+  
   ```
   ng add @ng-bootstrap/ng-bootstrap
   ```
 
 5. เพิ่ม Import icon ลงใน styles.css
+  
   ```
   @import "~bootstrap-icons/font/bootstrap-icons.css";
   ```
@@ -51,6 +55,7 @@ categories: Angular
 6. ตั้งค่า base api url ที่ต้องการจะไปดึงข้อมูล
    - environments/environment.ts
    - web api sample [jsonplaceholder](https://jsonplaceholder.typicode.com/)
+  
   ```ts
   export const environment = {
     production: false,
@@ -242,6 +247,7 @@ categories: Angular
 ### สร้าง Service รองรับการทำงานกับ Api
 
 1. สร้างไฟล์ post-service ด้วยคำสั่งช่วยสร้าง
+  
   ```
       ng g s services/post --skip-tests
   ```
@@ -264,6 +270,7 @@ categories: Angular
   ```
 
 3. สร้างตัวแปรเพื่อรองรับการทำงานเป็นตัวพักรายการ post
+  
   ```ts
       posts: Subject<PostBlogModel[]>;
 
@@ -282,6 +289,7 @@ categories: Angular
   ```
 
 4. สร้างฟังกชันก์สำหรับดึงรายการ post
+  
   ```ts
       // get all posts
       getAllPost(): Observable<PostBlogModel[]> {
@@ -296,6 +304,7 @@ categories: Angular
   ```
 
 5. สร้างฟังก์ชันสำหรับการเพิ่ม post ใหม่
+  
   ```ts
       // create new post
       createPost(newPost: PostBlogModel) {
@@ -304,6 +313,7 @@ categories: Angular
   ```
 
 6. สร้างฟังก์ชันสำหรับการอัปเดต post
+  
   ```ts
       // update post
       updatePost(newPost: PostBlogModel) {
@@ -315,6 +325,7 @@ categories: Angular
   ```
 
 7. สร้างฟังก์ชันสำหรับการลบ post
+  
   ```ts
       // delete post
       deletePost(id: number) {
@@ -325,6 +336,7 @@ categories: Angular
 ### จัดการการทำงานหลังบ้านของไฟล์ Layout html (app.component.html)
 
 1. เพิ่ม implements onInit
+  
   ```ts
   @Component({
     selector: "app-root",
@@ -337,6 +349,7 @@ categories: Angular
   ```
 
 2. ประกาศตัวแปร
+  
   ```ts
       // ใช้เป็น temporary ตอนดึงข้อมูลครั้งแรก
       posts: PostBlogModel[] = [];
@@ -371,6 +384,7 @@ categories: Angular
   ```
 
 3. เริ่มต้นการดึงข้อมูล Post เมื่อมายังหน้าแรก
+  
   ```ts
       ngOnInit(): void {
           // กำกับให้เปิด spinner
@@ -399,6 +413,7 @@ categories: Angular
   ```
 
 4. สร้างฟังก์ชันค้นหา
+  
   ```ts
       onSearch() {
           // ถ้า term blank ให้ return post ทั้งหมด
@@ -414,6 +429,7 @@ categories: Angular
   ```
 
 5. สร้างฟังก์ชันแสดงผลเมื่อเลือกรายการบนตาราง
+  
   ```ts
       onSelectClick(id: number) {
 
@@ -437,6 +453,7 @@ categories: Angular
   ```
 
 6. สร้างฟังก์ชันสำหรับการเพิ่มรายการ
+  
   ```ts
       onAdd() {
           let newPost: PostBlogModel;
@@ -468,6 +485,7 @@ categories: Angular
   ```
 
 7. สร้างฟังก์ชันสำหรับการแก้ไข post
+  
   ```ts
     onEdit() {
       let newPost: PostBlogModel;
@@ -495,6 +513,7 @@ categories: Angular
   ```
 
 8. สร้างฟังก์ชันสำหรับการลบ post
+  
   ```ts
     onDelete() {
       let tempPosts: PostBlogModel[] = [];
@@ -524,6 +543,7 @@ categories: Angular
   ```
 
 9. สร้างฟังก์ชันสำหรับการยกเลิก maintenance
+  
   ```ts
     onCancel() {
       this.form.reset();
